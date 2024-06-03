@@ -5,6 +5,9 @@ from ant_colony import AntColony
 from utils import load_cities
 import plotly.graph_objects as go
 
+from flask import jsonify
+import json
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -71,8 +74,15 @@ def generate_map():
             showland=True,
         )
     )
+    # Calculating total distance
+    total_distance = sum(distances[i][j] for i, j in shortest_path[0])
 
-    return jsonify(fig.to_json())
+    fig_json = fig.to_json()
+    fig_dict = json.loads(fig_json)
+    fig_dict['total_distance'] = total_distance
+    response = json.dumps(fig_dict)
+
+    return response
 
 
 if __name__ == '__main__':
