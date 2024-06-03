@@ -4,9 +4,9 @@
 install:
 	pip install -r requirements.txt
 
-.PHONY: flask_app
-flask_app:
-	python flask_app.py
+.PHONY: run_app
+run_app:
+	python main.py
 
 .PHONY: format
 format:

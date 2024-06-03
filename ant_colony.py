@@ -52,9 +52,7 @@ class AntColony:
         pheromone[list(visited)] = 0
 
         dist = np.copy(dist)
-        dist[dist == 0] = (
-            np.inf
-        )
+        dist[dist == 0] = np.inf
 
         row = pheromone**self.alpha * ((1.0 / dist) ** self.beta)
         norm_row = row / row.sum()
