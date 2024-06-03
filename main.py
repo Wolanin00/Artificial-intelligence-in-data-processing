@@ -19,9 +19,7 @@ def generate_map():
     data = request.get_json()
     region = data['region']
     n_ants = data['n_ants']
-    n_best = data['n_best']
     n_iterations = data['n_iterations']
-    decay = data['decay']
     alpha = data['alpha']
     beta = data['beta']
 
@@ -35,7 +33,7 @@ def generate_map():
             if i != j:
                 distances[i][j] = great_circle((lat1, lon1), (lat2, lon2)).kilometers
 
-    ant_colony = AntColony(distances, n_ants, n_best, n_iterations, decay, alpha=alpha, beta=beta)
+    ant_colony = AntColony(distances, n_ants, n_iterations, alpha=alpha, beta=beta)
     shortest_path = ant_colony.run()
 
     # Tworzenie mapy za pomocą Plotly
