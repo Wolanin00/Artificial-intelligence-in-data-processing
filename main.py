@@ -1,10 +1,9 @@
-from flask import Flask, render_template, request
-from dash import Dash, dcc, html
-import plotly.graph_objects as go
+from flask import Flask, render_template, request, jsonify
 import numpy as np
 from geopy.distance import great_circle
 from ant_colony import AntColony
 from utils import load_cities
+import plotly.graph_objects as go
 
 app = Flask(__name__)
 
@@ -12,20 +11,16 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/select_region', methods=['POST'])
-def select_region():
-    region = request.form['region']
-    return render_template('parameters.html', region=region)
-
 @app.route('/generate_map', methods=['POST'])
 def generate_map():
-    region = request.form['region']
-    n_ants = int(request.form['n_ants'])
-    n_best = int(request.form['n_best'])
-    n_iterations = int(request.form['n_iterations'])
-    decay = float(request.form['decay'])
-    alpha = float(request.form['alpha'])
-    beta = float(request.form['beta'])
+    data = request.get_json()
+    region = data['region']
+    n_ants = data['n_ants']
+    n_best = data['n_best']
+    n_iterations = data['n_iterations']
+    decay = data['decay']
+    alpha = data['alpha']
+    beta = data['beta']
 
     cities_data = load_cities('data/cities.yaml')
     cities = cities_data['cities'][region]
@@ -77,7 +72,7 @@ def generate_map():
         )
     )
 
-    return fig.to_html()
+    return jsonify(fig.to_json())
 
 if __name__ == '__main__':
     app.run(debug=True)

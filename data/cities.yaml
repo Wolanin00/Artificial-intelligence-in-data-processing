@@ -121,7 +121,7 @@ cities:
     - name: Zielona Góra
       lat: 51.9356
       lon: 15.5064
-  America:
+  North America:
     - name: New York
       lat: 40.7128
       lon: -74.0060

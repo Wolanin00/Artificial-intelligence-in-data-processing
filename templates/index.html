@@ -2,18 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Select Region</title>
+    <title>Ant Colony Optimization</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
+        #map {
+            width: 100%;
+            height: 600px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Select Region</h1>
-    <form action="/select_region" method="post">
+    <h1>Ant Colony Optimization</h1>
+    <div class="form-section">
         <label for="region">Region:</label>
         <select id="region" name="region">
             <option value="Europe">Europe</option>
             <option value="Poland">Poland</option>
-            <option value="America">America</option>
+            <option value="North America">North America</option>
         </select>
-        <button type="submit">Next</button>
-    </form>
+    </div>
+    <div class="form-section">
+        <label for="n_ants">Number of Ants:</label>
+        <input type="number" id="n_ants" name="n_ants" required><br>
+        <label for="n_best">Number of Best Ants:</label>
+        <input type="number" id="n_best" name="n_best" required><br>
+        <label for="n_iterations">Number of Iterations:</label>
+        <input type="number" id="n_iterations" name="n_iterations" required><br>
+        <label for="decay">Decay Rate:</label>
+        <input type="number" step="0.01" id="decay" name="decay" required><br>
+        <label for="alpha">Alpha:</label>
+        <input type="number" step="0.01" id="alpha" name="alpha" required><br>
+        <label for="beta">Beta:</label>
+        <input type="number" step="0.01" id="beta" name="beta" required><br>
+    </div>
+    <button id="generate_map">Generate Map</button>
+    <div id="map"></div>
+
+    <script>
+        $(document).ready(function() {
+            $('#generate_map').click(function() {
+                const region = $('#region').val();
+                const n_ants = $('#n_ants').val();
+                const n_best = $('#n_best').val();
+                const n_iterations = $('#n_iterations').val();
+                const decay = $('#decay').val();
+                const alpha = $('#alpha').val();
+                const beta = $('#beta').val();
+
+                const data = {
+                    region: region,
+                    n_ants: parseInt(n_ants),
+                    n_best: parseInt(n_best),
+                    n_iterations: parseInt(n_iterations),
+                    decay: parseFloat(decay),
+                    alpha: parseFloat(alpha),
+                    beta: parseFloat(beta)
+                };
+
+                $.ajax({
+                    url: '/generate_map',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function(response) {
+                        const fig = JSON.parse(response);
+                        Plotly.newPlot('map', fig.data, fig.layout);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
