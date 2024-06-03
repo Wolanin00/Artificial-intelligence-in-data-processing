@@ -67,7 +67,7 @@ def generate_map():
         geo=dict(
             scope=region.lower() if region.lower() != 'poland' else 'europe',
             projection_type='mercator',
-            showland=True,
+            showland=True
         )
     )
     # Calculating total distance
