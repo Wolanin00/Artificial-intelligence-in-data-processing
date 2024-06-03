@@ -74,5 +74,6 @@ def generate_map():
 
     return jsonify(fig.to_json())
 
+
 if __name__ == '__main__':
     app.run(debug=True)
