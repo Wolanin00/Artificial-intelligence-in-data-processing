@@ -4,8 +4,6 @@ from geopy.distance import great_circle
 from ant_colony import AntColony
 from utils import load_cities
 import plotly.graph_objects as go
-
-from flask import jsonify
 import json
 
 app = Flask(__name__)
@@ -75,8 +73,7 @@ def generate_map():
     # Calculating total distance
     total_distance = sum(distances[i][j] for i, j in shortest_path[0])
 
-    fig_json = fig.to_json()
-    fig_dict = json.loads(fig_json)
+    fig_dict = fig.to_dict()
     fig_dict['total_distance'] = total_distance
     response = json.dumps(fig_dict)
 
