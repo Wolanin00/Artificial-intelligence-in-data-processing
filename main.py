@@ -5,6 +5,8 @@ from ant_colony import AntColony
 from utils import load_cities
 import plotly.graph_objects as go
 import json
+import os
+import signal
 
 app = Flask(__name__)
 
@@ -83,6 +85,14 @@ def generate_map():
     response = json.dumps(fig_dict)
 
     return response
+
+
+@app.route("/shutdown")
+def shutdown():
+    """
+    shutdown
+    """
+    os.kill(os.getpid(), signal.SIGINT)
 
 
 if __name__ == "__main__":
