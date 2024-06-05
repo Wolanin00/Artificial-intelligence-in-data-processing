@@ -67,7 +67,7 @@ def generate_map():
     )
 
     fig.update_layout(
-        title="Shortest Path by Ant Colony Optimization",
+        title=f"Shortest Path by Ant Colony Optimization for {region}",
         showlegend=False,
         geo=dict(
             scope=region.lower() if region.lower() != "poland" else "europe",
