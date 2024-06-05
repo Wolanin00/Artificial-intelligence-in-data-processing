@@ -17,3 +17,9 @@ To run app run -> `make run_app`
 ## Additional features
 
 To format code (with black) and make ruff run -> `make format`
+
+## Preview 
+
+### Flask app
+
+![flask](static/app_preview.gif)
