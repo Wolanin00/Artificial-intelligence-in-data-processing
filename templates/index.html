@@ -62,7 +62,7 @@
                         </div>
                         <button id="generate_map" class="btn btn-violet btn-lg">Generate Map</button>
                         <br>
-                        <hr>
+                        <br>
                         <h2 id="total-distance"></h2>
                     </div>
                 </div>
@@ -72,24 +72,45 @@
                     </div>
                 </div>
             </div>
+            <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="copyright">
+                    <div class="copyright" style="text-align: center;">
                         &copy; Copyright (c) 2024 Mateusz Szewczyk
                     </div>
                 </div>
             </div>
         </div>
 
-        <script>
-            $(document).ready(function() {
-                $('#generate_map').click(function() {
-                    const region = $('#region').val();
-                    const n_ants = $('#n_ants').val();
-                    const n_iterations = $('#n_iterations').val();
-                    const alpha = $('#alpha').val();
-                    const beta = $('#beta').val();
+    <script>
+        $(document).ready(function() {
+            $('#generate_map').click(function() {
+                const region = $('#region').val();
+                const n_ants = $('#n_ants').val();
+                const n_iterations = $('#n_iterations').val();
+                const alpha = $('#alpha').val();
+                const beta = $('#beta').val();
+                let errorMessage = '';
 
+                if (!region) {
+                    errorMessage += 'Please select a region.\n';
+                }
+                if (!n_ants || isNaN(n_ants) || parseInt(n_ants) < 0) {
+                    errorMessage += 'Please enter a valid number of ants.\n';
+                }
+                if (!n_iterations || isNaN(n_iterations) || parseInt(n_iterations) < 0) {
+                    errorMessage += 'Please enter a valid number of iterations.\n';
+                }
+                if (!alpha || isNaN(alpha) || parseFloat(alpha) < 0) {
+                    errorMessage += 'Please enter a valid alpha value.\n';
+                }
+                if (!beta || isNaN(beta) || parseFloat(beta) < 0) {
+                    errorMessage += 'Please enter a valid beta value.\n';
+                }
+
+                if (errorMessage) {
+                    alert(errorMessage);
+                } else {
                     const data = {
                         region: region,
                         n_ants: parseInt(n_ants),
@@ -107,10 +128,14 @@
                             const fig = JSON.parse(response);
                             Plotly.newPlot('map', fig.data, fig.layout);
                             $('#total-distance').text('Total Distance: ' + fig.total_distance.toFixed(2) + ' km');
+                        },
+                        error: function(error) {
+                            alert('An error occurred while generating the map. Please try again.');
                         }
                     });
-                });
+                }
             });
-        </script>
+        });
+    </script>
     </body>
 </html>
