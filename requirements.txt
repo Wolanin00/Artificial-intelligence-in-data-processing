@@ -4,3 +4,4 @@ flask
 geopy
 black
 ruff
+PyYAML
