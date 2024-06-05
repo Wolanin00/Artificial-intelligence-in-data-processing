@@ -35,9 +35,16 @@
 </head>
     <body>
         <div class="container-fluid">
+            <div class="row pt-3">
+                <div class="col-md-10">
+                    <h3>Project for completing the course "Artificial intelligence in data processing" - Szewczyk Mateusz</h3>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-violet btn-lg" id="exit_button" onclick="exitApp()">Exit</button>
+                </div>
+            </div>
+            <hr>
             <div class="row">
-                <h3>Project for completing the course "Artificial intelligence in data processing" - Szewczyk Mateusz</h3>
-                <hr>
                 <div class="col-md-4">
                     <div class="container"><br>
                         <div class="form-section">
@@ -136,6 +143,16 @@
                 }
             });
         });
+        function exitApp() {
+            fetch('/shutdown', {
+                method: 'POST'
+            })
+            .then(response => {
+                console.log('Server shutting down...');
+                window.location.href = '/shutdown';
+            })
+            .catch(error => console.error('Error:', error));
+        }
     </script>
     </body>
 </html>
