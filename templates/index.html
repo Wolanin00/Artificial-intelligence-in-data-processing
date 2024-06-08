@@ -31,6 +31,11 @@
             background-color: #9400d3;
             border-color: #9400d3;
         }
+        .column {
+            float: left;
+            width: 50%;
+            padding: 0 10px;
+        }
     </style>
 </head>
     <body>
@@ -56,16 +61,18 @@
                             </select><br>
                         </div>
                         <div class="form-section">
-                            <label for="n_ants" class="form-label">Number of Ants:</label>
-                            <input type="number" id="n_ants" name="n_ants" value="50" class="form-control" required><br>
-                            <label for="n_iterations" class="form-label">Number of Iterations:</label>
-                            <input type="number" id="n_iterations" name="n_iterations" value="100" class="form-control"
-                                   required><br>
-                            <label for="alpha" class="form-label">Alpha:</label>
-                            <input type="number" step="0.01" id="alpha" name="alpha" value="1" class="form-control"
-                                   required><br>
-                            <label for="beta" class="form-label">Beta:</label>
-                            <input type="number" step="0.01" id="beta" name="beta" value="2" class="form-control" required><br>
+                            <div class="column">
+                                <label for="n_ants" class="form-label">Number of Ants:</label>
+                                <input type="number" id="n_ants" name="n_ants" value="50" class="form-control" required><br>
+                                <label for="alpha" class="form-label">Alpha:</label>
+                                <input type="number" step="0.01" id="alpha" name="alpha" value="1" class="form-control" required><br>
+                            </div>
+                            <div class="column">
+                                <label for="n_iterations" class="form-label">Number of Iterations:</label>
+                                <input type="number" id="n_iterations" name="n_iterations" value="100" class="form-control" required><br>
+                                <label for="beta" class="form-label">Beta:</label>
+                                <input type="number" step="0.01" id="beta" name="beta" value="2" class="form-control" required><br>
+                            </div>
                         </div>
                         <button id="generate_map" class="btn btn-violet btn-lg">Generate Map</button>
                         <br>
